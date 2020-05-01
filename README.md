@@ -1,4 +1,4 @@
-## COVID-19 app
+## COVID-19 APP
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
