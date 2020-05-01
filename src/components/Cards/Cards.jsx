@@ -1,10 +1,8 @@
 import React from 'react';
 import { Card, CardContent, Typography, Grid } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import CountUp from 'react-countup';
 import cx from 'classnames';
-
-import { useTranslation } from 'react-i18next';
-
 import styles from './Cards.module.css';
 
 const Info = ({ data: { confirmed, recovered, deaths, lastUpdate } }) => {

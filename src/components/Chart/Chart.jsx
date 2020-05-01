@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Line, Bar } from 'react-chartjs-2';
-
-import { useTranslation } from 'react-i18next';
-
+import { BarChart, LineChart } from '../index'
 import { fetchDailyData } from '../../api';
 
 import styles from './Chart.module.css';
 
-const Chart = ({ data: { confirmed, recovered, deaths }, country }) => {
-  const { t } = useTranslation();
+const Chart = ({ data: { confirmed, recovered, deaths }, country, language }) => {
 
   const [dailyData, setDailyData] = useState({});
 
@@ -24,45 +20,19 @@ const Chart = ({ data: { confirmed, recovered, deaths }, country }) => {
 
   const barChart = (
     confirmed ? (
-      <Bar
-        data={{
-          labels: [t('Infected'), t('Recovered'), t('Deaths')],
-          datasets: [
-            {
-              label: 'People',
-              backgroundColor: ['rgba(0, 0, 255, 0.5)', 'rgba(0, 255, 0, 0.5)', 'rgba(255, 0, 0, 0.5)'],
-              data: [confirmed.value, recovered.value, deaths.value],
-            },
-          ],
-        }}
-        options={{
-          legend: { display: false },
-          title: { display: true, text: `Current state in ${country}` },
-        }}
+      <BarChart
+        confirmed={confirmed}
+        recovered={recovered}
+        deaths={deaths}
+        language={language}
+        country={country}
       />
     ) : null
   );
 
   const lineChart = (
     dailyData[0] ? (
-      <Line
-        data={{
-          labels: dailyData.map(({ date }) => date),
-          datasets: [{
-            data: dailyData.map((data) => data.confirmed),
-            label: t('Infected'),
-            borderColor: '#3333ff',
-            fill: true,
-          }, {
-            data: dailyData.map((data) => data.deaths),
-            label: t('Deaths'),
-            borderColor: 'red',
-            backgroundColor: 'rgba(255, 0, 0, 0.5)',
-            fill: true,
-          },
-          ],
-        }}
-      />
+      <LineChart dailyData={dailyData} />
     ) : null
   );
 
